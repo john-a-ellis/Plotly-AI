@@ -1,13 +1,11 @@
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import HumanMessage
 from langchain_groq import ChatGroq
-
 from dash import Dash, html, dcc, callback, Output, Input, State
 import dash_ag_grid as dag
 import dash_bootstrap_components as dbc
 from dash_bootstrap_templates import load_figure_template
 import pandas as pd
-import os
 from assets.api_keys import groq_key
 import re
 
@@ -28,7 +26,7 @@ prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            "You're a data visulaization expert and use your favourite graphin library Plotly only.  Suppose, that "
+            "You're a data visualization expert and use your favourite graphing library Plotly only.  Suppose, that "
             "the data is provided as a data/GEDEvent_v24_1.csv file and consists of a list of violent events throughout the world.  "
             "Here are the first 5 rows of the data set: {data} "
             "Follow the user's instructions when creating the graph."
