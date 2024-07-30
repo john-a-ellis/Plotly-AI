@@ -18,7 +18,7 @@ csv_string = df_5_rows.to_string(index=False)
 #chose the model
 model = ChatGroq(
     api_key=groq_key,
-    model="llama3.1-70b-versatile"
+    model="llama-3.1-70b-versatile"
 )
 
 prompt = ChatPromptTemplate.from_messages(
@@ -26,7 +26,7 @@ prompt = ChatPromptTemplate.from_messages(
         (
             "system",
             "You're a data visulaization expert and use your favourite graphin library Plotly only.  Suppose, that "
-            "the data is provided as a GEDEvent_v24_1.csv file and consists of a list of violent events throught the world.  "
+            "the data is provided as a data/GEDEvent_v24_1.csv file and consists of a list of violent events throughout the world.  "
             "Here are the first 5 rows of the data set: {data} "
             "Follow the user's instructions when creating the graph."
         ),
@@ -84,7 +84,7 @@ def create_graph(_, user_input):
     print(code_block_match)
     if code_block_match:
           code_block =  code_block_match.group(1).strip()
-          cleaned_code = re.sub(r'(?m)*\s=fig\.show\(\)\s=$', '', code_block)
+          cleaned_code = re.sub(r'(?m)^\s*fig\.show\(\)\s*$', '', code_block)
           fig =get_fig_from_code(cleaned_code)
           return dcc.Graph(figure=fig), result_output
     else:
