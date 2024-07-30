@@ -4,12 +4,15 @@ from langchain_groq import ChatGroq
 
 from dash import Dash, html, dcc, callback, Output, Input, State
 import dash_ag_grid as dag
+import dash_bootstrap_components as dbc
+from dash_bootstrap_templates import load_figure_template
 import pandas as pd
 import os
 from assets.api_keys import groq_key
 import re
 
-# GROQ_API_KEY = groq_key
+dbc_css = "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.min.css"
+load_figure_template("minty")
 
 df = pd.read_csv('data/GEDEvent_v24_1.csv')
 df_5_rows = df.head()
@@ -40,7 +43,7 @@ def get_fig_from_code(code):
     exec(code, {}, local_variables)
     return local_variables['fig']
 
-app = Dash()
+app = Dash(__name__, external_stylesheets=[dbc.themes.MINTY, dbc_css])
 server = app.server
 app.layout = html.Div([
     html.H1("Plotly AI for Creating Graphs"),
